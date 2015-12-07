@@ -17,6 +17,7 @@ class MoonController extends Controller
     public function index()
     {
         //
+        echo "MoonController/index";
     }
 
     /**
