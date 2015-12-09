@@ -51,8 +51,7 @@ class UserController extends Controller
     {
         echo "UserController/xiaofang";
         echo "<hr>";
-
-
+        //redirect('user/nameRoute');
     }
 
 }

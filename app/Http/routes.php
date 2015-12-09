@@ -81,8 +81,36 @@ Route::group(['domain' => 'moon'], function () {
 
 //路由前缀
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('users', function ()    {
+    Route::get('users', function () {
         // Matches The "/admin/users" URL
         var_dump('路由前缀');
     });
 });
+/**********************************
+ * 中间件
+ */
+Route::get('/middle', ['middleware' => ['before', 'after'], function () {
+    var_dump('测试前置，后置中间件');
+}]);
+Route::get('/middle1', function () {
+    var_dump('测试前置，后置中间件');
+})->middleware(['after', 'before']);
+//中间件参数
+Route::get('post/{id}', ['middleware' => 'role:xiaofang', function ($id) {
+    //
+    var_dump('参数中间件');
+
+}]);
+/*********************************
+ * 控制器
+ */
+Route::get('moon/showPage/{id?}', ['uses' => 'MoonController@showPage']);
+//控制器 & 命名空间
+Route::get('photos/admin', 'Photos\AdminController@index');
+Route::group(['prefix' => 'admin','middleware' => 'old','namespace' => 'Photos'], function () {
+
+    Route::get('photos/index', 'AdminController@xiaofang');
+});
+
+//给路由命名
+Route::get('moon/lian', ['uses' => 'MoonController@lian', 'as' => 'lian']);
